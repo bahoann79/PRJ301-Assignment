@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +22,9 @@ public class Student {
     private String phoneNumber;
     private String studentImage;
     private String email;
+    
+    ArrayList<StudentGroup> studentGroups;
+    ArrayList<Attendance> attendances;
 
     public Student() {
     }
@@ -108,6 +112,26 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public ArrayList<StudentGroup> getStudentGroups() {
+        return studentGroups;
+    }
+
+    public void setStudentGroups(ArrayList<StudentGroup> studentGroups) {
+        this.studentGroups = studentGroups;
+    }
+
+    public ArrayList<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(ArrayList<Attendance> attendances) {
+        this.attendances = attendances;
+    }
+
+  
+    
+    
     
     
     

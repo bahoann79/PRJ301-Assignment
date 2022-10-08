@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
@@ -13,6 +15,9 @@ public class DayOfWeek {
     private int dowId;
     private String dayStart;
     private String dayEnd;
+    
+    ArrayList<Lecture> lectures;
+    ArrayList<SlotQuantityADay> slotQuantityADays;
 
     public DayOfWeek() {
     }
@@ -45,6 +50,22 @@ public class DayOfWeek {
 
     public void setDayEnd(String dayEnd) {
         this.dayEnd = dayEnd;
+    }
+
+    public ArrayList<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(ArrayList<Lecture> lectures) {
+        this.lectures = lectures;
+    }
+
+    public ArrayList<SlotQuantityADay> getSlotQuantityADays() {
+        return slotQuantityADays;
+    }
+
+    public void setSlotQuantityADays(ArrayList<SlotQuantityADay> slotQuantityADays) {
+        this.slotQuantityADays = slotQuantityADays;
     }
     
     
