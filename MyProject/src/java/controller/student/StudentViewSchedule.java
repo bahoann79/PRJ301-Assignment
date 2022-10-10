@@ -4,12 +4,15 @@
  */
 package controller.student;
 
+import dal.DayOfWeekDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import model.DayOfWeek;
 
 /**
  *
@@ -21,7 +24,10 @@ public class StudentViewSchedule extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.sendRedirect("../view/student/schedule.jsp");
+        DayOfWeekDBContext dowDB = new DayOfWeekDBContext();
+        ArrayList<DayOfWeek> listDow = dowDB.getListDayOfWeek();
+        request.setAttribute("listDow", listDow);
+        request.getRequestDispatcher("../view/student/schedule.jsp").forward(request, response);
 
     }
 
