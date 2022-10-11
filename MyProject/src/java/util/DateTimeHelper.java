@@ -17,8 +17,13 @@ import java.util.logging.Logger;
  */
 public class DateTimeHelper {
 
+    /*
+    method is used to addition 1 value for input day 
+    @param String day   
+    @return String with day + 1
+    @exception ParseException
+     */
     public static String getDayTomorrow(String day) {
-
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
             Calendar calendar = Calendar.getInstance();
@@ -33,6 +38,12 @@ public class DateTimeHelper {
         return null;
     }
 
+    /*
+    method is used to check if current day in range or not
+    @param String startDate, endDate   
+    @return true if current day in range, false if not
+    @exception ParseException
+     */
     public static boolean currentDateInRange(String startDate, String endDate) {
         startDate += "/2022";
         endDate += "/2022";
