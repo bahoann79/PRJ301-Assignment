@@ -20,11 +20,11 @@ public class DateTimeHelper {
     public static String getDayTomorrow(String day) {
 
         try {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(format.parse(day));
+            calendar.setTime(formatter.parse(day));
             calendar.add(Calendar.DATE, 1);
-            String result = format.format(calendar.getTime());
+            String result = formatter.format(calendar.getTime());
             return result;
 
         } catch (ParseException ex) {
