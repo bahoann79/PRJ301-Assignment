@@ -4,9 +4,17 @@
         <servlet-name>StudentViewSchedule</servlet-name>
         <servlet-class>controller.student.StudentViewSchedule</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LecturerViewHome</servlet-name>
+        <servlet-class>controller.lecturer.LecturerViewHome</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentViewSchedule</servlet-name>
         <url-pattern>/student/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LecturerViewHome</servlet-name>
+        <url-pattern>/lecturer/home</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
