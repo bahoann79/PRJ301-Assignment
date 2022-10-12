@@ -78,16 +78,17 @@
                                 <select>
                                     <option value="2020">2020</option>
                                     <option value="2021">2021</option>
-                                    <option value="2022">2022</option>
+                                    <option value="2022" selected="selected">2022</option>
                                     <option value="2023">2023</option>
                                 </select>
                             </span>
 
                             <span class="d-block text-center mt-2">
                                 Week
-                                <select>
+                                <input type="hidden" id="selectedId" value="${requestScope.selectId}">
+                                <select id="dayOfWeek">
                                     <c:forEach items="${requestScope.listDow}" var="dayOfWeek"> 
-                                        <option value="1">${dayOfWeek.dayStart} To ${dayOfWeek.dayEnd}</option>
+                                        <option value="${dayOfWeek.dowId}">${dayOfWeek.dayStart} To ${dayOfWeek.dayEnd}</option>
                                     </c:forEach>
                                 </select>
                             </span>
@@ -102,14 +103,12 @@
                     </tr>
 
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <c:forEach items="${requestScope.listSubDow}" var="subDow">
+                            <th>${subDow}</th>
+                            </c:forEach>
+
                     </tr>
+
                 </thead>
 
                 <tbody>
@@ -251,7 +250,21 @@
 
 
         </div>
+        <script>
 
+            var x = document.getElementById("dayOfWeek");
+            x.addEventListener('change', function () {
+                window.location = 'schedule?' + 'dowId=' + x.value;
+            });
+
+            var y = document.getElementById("selectedId");
+            if (y.value === "") {
+                y.value = 1;
+            } else {
+                x.value = y.value;
+            }
+
+        </script>
 
 
     </body>
