@@ -70,7 +70,7 @@
             <form>
                 <table class="table">
 
-                    <thead>
+                    <thead class="table-light">
                         <tr>
                             <th>Index</th>
                             <th>Image</th>
