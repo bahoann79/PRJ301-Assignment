@@ -17,7 +17,7 @@ public class DayOfWeek {
     private String dayEnd;
     
     ArrayList<Lecture> lectures;
-    ArrayList<SlotQuantityADay> slotQuantityADays;
+    ArrayList<SlotTimeActive> slotTimeActives;
 
     public DayOfWeek() {
     }
@@ -60,13 +60,15 @@ public class DayOfWeek {
         this.lectures = lectures;
     }
 
-    public ArrayList<SlotQuantityADay> getSlotQuantityADays() {
-        return slotQuantityADays;
+    public ArrayList<SlotTimeActive> getSlotTimeActives() {
+        return slotTimeActives;
     }
 
-    public void setSlotQuantityADays(ArrayList<SlotQuantityADay> slotQuantityADays) {
-        this.slotQuantityADays = slotQuantityADays;
+    public void setSlotTimeActives(ArrayList<SlotTimeActive> slotTimeActives) {
+        this.slotTimeActives = slotTimeActives;
     }
+
+ 
     
     
     

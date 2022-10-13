@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author admin
  */
 public class Student {
-    
+
     private int studentId;
     private String fullName;
     private Date dob;
@@ -22,8 +22,8 @@ public class Student {
     private String phoneNumber;
     private String studentImage;
     private String email;
-    
-    ArrayList<StudentGroup> studentGroups;
+
+    ArrayList<Group> groups;
     ArrayList<Attendance> attendances;
 
     public Student() {
@@ -113,14 +113,6 @@ public class Student {
         this.email = email;
     }
 
-    public ArrayList<StudentGroup> getStudentGroups() {
-        return studentGroups;
-    }
-
-    public void setStudentGroups(ArrayList<StudentGroup> studentGroups) {
-        this.studentGroups = studentGroups;
-    }
-
     public ArrayList<Attendance> getAttendances() {
         return attendances;
     }
@@ -129,10 +121,14 @@ public class Student {
         this.attendances = attendances;
     }
 
-  
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
     
     
-    
-    
-    
+
 }

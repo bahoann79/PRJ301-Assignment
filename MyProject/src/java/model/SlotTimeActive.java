@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * @author admin
  */
 public class SlotTimeActive {
-    
+
     private int slotId;
     private String hoursDuring;
-    
-    ArrayList<SlotQuantityADay> slotQuantityADays;
+
+    ArrayList<DayOfWeek> dows;
 
     public SlotTimeActive() {
     }
@@ -41,15 +41,12 @@ public class SlotTimeActive {
         this.hoursDuring = hoursDuring;
     }
 
-    public ArrayList<SlotQuantityADay> getSlotQuantityADays() {
-        return slotQuantityADays;
+    public ArrayList<DayOfWeek> getDows() {
+        return dows;
     }
 
-    public void setSlotQuantityADays(ArrayList<SlotQuantityADay> slotQuantityADays) {
-        this.slotQuantityADays = slotQuantityADays;
+    public void setDows(ArrayList<DayOfWeek> dows) {
+        this.dows = dows;
     }
-    
-    
-    
-    
+
 }

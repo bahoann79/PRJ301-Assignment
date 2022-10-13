@@ -16,9 +16,9 @@ public class Group {
     private String groupCode;
 
     Subject subject;
-    ArrayList<StudentGroup> studentGroups;
     Lecturer lecturer;
     ArrayList<Lecture> lectures;
+    ArrayList<Student> students;
 
     public Group() {
     }
@@ -52,14 +52,6 @@ public class Group {
         this.subject = subject;
     }
 
-    public ArrayList<StudentGroup> getStudentGroups() {
-        return studentGroups;
-    }
-
-    public void setStudentGroups(ArrayList<StudentGroup> studentGroups) {
-        this.studentGroups = studentGroups;
-    }
-
     public Lecturer getLecturer() {
         return lecturer;
     }
@@ -74,6 +66,14 @@ public class Group {
 
     public void setLectures(ArrayList<Lecture> lectures) {
         this.lectures = lectures;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
     }
 
 }
