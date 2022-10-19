@@ -16,19 +16,17 @@ public class Subject {
     private String subjectCode;
     private String subjectName;
     private int duration;
-    private String term;
     
-    ArrayList<Group> groups;
+    ArrayList<Group> groups = new ArrayList<>();
 
     public Subject() {
     }
 
-    public Subject(int subjectId, String subjectCode, String subjectName, int duration, String term) {
+    public Subject(int subjectId, String subjectCode, String subjectName, int duration) {
         this.subjectId = subjectId;
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
         this.duration = duration;
-        this.term = term;
     }
 
     public int getSubjectId() {
@@ -63,14 +61,6 @@ public class Subject {
         this.duration = duration;
     }
 
-    public String getTerm() {
-        return term;
-    }
-
-    public void setTerm(String term) {
-        this.term = term;
-    }
-
     public ArrayList<Group> getGroups() {
         return groups;
     }
@@ -81,6 +71,6 @@ public class Subject {
     
     
     
-    
+        
     
 }

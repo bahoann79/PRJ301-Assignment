@@ -24,6 +24,46 @@
         <link rel="stylesheet" href="../../assets/css/studentSchedule.css"/>
 
 
+        <style>
+            /* Reset CSS */
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+
+                /* tạo hiệu ứng lăn */
+                scroll-behavior: smooth;
+            }
+
+
+            .header-sc a {
+                line-height: 50px;
+                text-decoration: none;
+                margin-left: 20px;
+                display: inline-block;
+            }
+
+            .header-sc ul,
+            .header-sc ul > li{
+                display: inline-block;
+
+            }
+
+            .header-sc ul > li {
+                background-color: #5cb85c;
+                border-radius: 5px;
+                padding: 3px;
+                color: aliceblue;
+            }
+
+            .footer a {
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -114,7 +154,11 @@
                 <tbody>
                     <tr>
                         <td>Slot 0</td>
-                        <td>-</td>
+                        <td>MAS 291 -<br/>
+                            at DE-212  <br/>
+                            <p class="text-success" style="display: inline">(attendance)</p> <br/>
+                            <p class="text-success" style="display: inline">(7:30 - 9:00)</p> 
+                        </td>
                         <td>-</td>
                         <td>-</td>
                         <td>-</td>
@@ -125,7 +169,10 @@
 
                     <tr>
                         <td>Slot 1</td>
-                        <td></td>
+                        <td>PRJ 301 -<br/>
+                            at DE-420  <br/>
+                            <p class="text-danger" style="display: inline">(not yet)</p> <br/>
+                            <p class="text-success" style="display: inline">(9:10 - 10:40)</p> </td>
                         <td></td>
                         <td></td>
                         <td></td>

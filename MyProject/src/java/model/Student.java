@@ -14,22 +14,23 @@ import java.util.ArrayList;
 public class Student {
 
     private int studentId;
+    private String studentCode;
     private String fullName;
     private Date dob;
     private boolean gender;
     private String idCard;
     private String address;
     private String phoneNumber;
-    private String studentImage;
+    private String image;
     private String email;
 
-    ArrayList<Group> groups;
-    ArrayList<Attendance> attendances;
+    private ArrayList<Group> groups = new ArrayList<>();
+    private ArrayList<Attendance> attendances = new ArrayList<>();
 
     public Student() {
     }
 
-    public Student(int studentId, String fullName, Date dob, boolean gender, String idCard, String address, String phoneNumber, String studentImage, String email) {
+    public Student(int studentId, String fullName, Date dob, boolean gender, String idCard, String address, String phoneNumber, String image, String email) {
         this.studentId = studentId;
         this.fullName = fullName;
         this.dob = dob;
@@ -37,7 +38,7 @@ public class Student {
         this.idCard = idCard;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.studentImage = studentImage;
+        this.image = image;
         this.email = email;
     }
 
@@ -47,6 +48,14 @@ public class Student {
 
     public void setStudentId(int studentId) {
         this.studentId = studentId;
+    }
+
+    public String getStudentCode() {
+        return studentCode;
+    }
+
+    public void setStudentCode(String studentCode) {
+        this.studentCode = studentCode;
     }
 
     public String getFullName() {
@@ -97,12 +106,12 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getStudentImage() {
-        return studentImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setStudentImage(String studentImage) {
-        this.studentImage = studentImage;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getEmail() {
@@ -113,14 +122,6 @@ public class Student {
         this.email = email;
     }
 
-    public ArrayList<Attendance> getAttendances() {
-        return attendances;
-    }
-
-    public void setAttendances(ArrayList<Attendance> attendances) {
-        this.attendances = attendances;
-    }
-
     public ArrayList<Group> getGroups() {
         return groups;
     }
@@ -128,7 +129,13 @@ public class Student {
     public void setGroups(ArrayList<Group> groups) {
         this.groups = groups;
     }
-    
-    
+
+    public ArrayList<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(ArrayList<Attendance> attendances) {
+        this.attendances = attendances;
+    }
 
 }

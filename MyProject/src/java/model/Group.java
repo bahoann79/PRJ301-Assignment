@@ -11,21 +11,25 @@ import java.util.ArrayList;
  * @author admin
  */
 public class Group {
-
+    
     private int groupId;
-    private String groupCode;
-
-    Subject subject;
-    Lecturer lecturer;
-    ArrayList<Lecture> lectures;
-    ArrayList<Student> students;
+    private String groupName;
+    private String semester;
+    private int year;
+    
+    private ArrayList<Student> students = new ArrayList<>();
+    private Subject subject;
+    private Lecturer lecturer;
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Group() {
     }
 
-    public Group(int groupId, String groupCode) {
+    public Group(int groupId, String groupName, String semester, int year) {
         this.groupId = groupId;
-        this.groupCode = groupCode;
+        this.groupName = groupName;
+        this.semester = semester;
+        this.year = year;
     }
 
     public int getGroupId() {
@@ -36,12 +40,36 @@ public class Group {
         this.groupId = groupId;
     }
 
-    public String getGroupCode() {
-        return groupCode;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroupCode(String groupCode) {
-        this.groupCode = groupCode;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
     }
 
     public Subject getSubject() {
@@ -60,20 +88,16 @@ public class Group {
         this.lecturer = lecturer;
     }
 
-    public ArrayList<Lecture> getLectures() {
-        return lectures;
+    public ArrayList<Session> getSessions() {
+        return sessions;
     }
 
-    public void setLectures(ArrayList<Lecture> lectures) {
-        this.lectures = lectures;
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
-
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
-    }
-
+    
+    
+    
+    
+    
 }

@@ -4,50 +4,38 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author admin
  */
 public class Attendance {
     
-    private int attendanceId;
-    private boolean status;
-    private String desc;
+    private Session session;
+    private Student student;
     
-    Student student;
-    Lecture lecture;
+    private boolean status;
+    private String description;
+    private Date recordTime;
 
     public Attendance() {
     }
 
-    public Attendance(int attendanceId, boolean status, String desc) {
-        this.attendanceId = attendanceId;
+    public Attendance(Session session, Student student, boolean status, String description, Date recordTime) {
+        this.session = session;
+        this.student = student;
         this.status = status;
-        this.desc = desc;
+        this.description = description;
+        this.recordTime = recordTime;
     }
 
-    public int getAttendanceId() {
-        return attendanceId;
+    public Session getSession() {
+        return session;
     }
 
-    public void setAttendanceId(int attendanceId) {
-        this.attendanceId = attendanceId;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     public Student getStudent() {
@@ -58,12 +46,28 @@ public class Attendance {
         this.student = student;
     }
 
-    public Lecture getLecture() {
-        return lecture;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setLecture(Lecture lecture) {
-        this.lecture = lecture;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getRecordTime() {
+        return recordTime;
+    }
+
+    public void setRecordTime(Date recordTime) {
+        this.recordTime = recordTime;
     }
     
     

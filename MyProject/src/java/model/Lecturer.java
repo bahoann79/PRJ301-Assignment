@@ -20,15 +20,15 @@ public class Lecturer {
     private Date dob;
     private String address;
     private String email;
-    private String lecturerImage;
+    private String image;
     
-    ArrayList<Group> groups;
-    ArrayList<Lecture> lectures;
+    private ArrayList<Group> groups = new ArrayList<>();
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Lecturer() {
     }
 
-    public Lecturer(int lecturerId, String lecturerCode, String lecturerName, boolean gender, Date dob, String address, String email, String lecturerImage) {
+    public Lecturer(int lecturerId, String lecturerCode, String lecturerName, boolean gender, Date dob, String address, String email, String image) {
         this.lecturerId = lecturerId;
         this.lecturerCode = lecturerCode;
         this.lecturerName = lecturerName;
@@ -36,7 +36,7 @@ public class Lecturer {
         this.dob = dob;
         this.address = address;
         this.email = email;
-        this.lecturerImage = lecturerImage;
+        this.image = image;
     }
 
     public int getLecturerId() {
@@ -95,12 +95,12 @@ public class Lecturer {
         this.email = email;
     }
 
-    public String getLecturerImage() {
-        return lecturerImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setLecturerImage(String lecturerImage) {
-        this.lecturerImage = lecturerImage;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public ArrayList<Group> getGroups() {
@@ -111,15 +111,15 @@ public class Lecturer {
         this.groups = groups;
     }
 
-    public ArrayList<Lecture> getLectures() {
-        return lectures;
+    public ArrayList<Session> getSessions() {
+        return sessions;
     }
 
-    public void setLectures(ArrayList<Lecture> lectures) {
-        this.lectures = lectures;
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
     
     
-            
+    
     
 }

@@ -18,7 +18,7 @@ public class Room {
     private int quantityDesk;
     private int quantitySeat;
     
-    ArrayList<Lecture> lectures;
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public Room() {
     }
@@ -71,14 +71,13 @@ public class Room {
         this.quantitySeat = quantitySeat;
     }
 
-    public ArrayList<Lecture> getLectures() {
-        return lectures;
+    public ArrayList<Session> getSessions() {
+        return sessions;
     }
 
-    public void setLectures(ArrayList<Lecture> lectures) {
-        this.lectures = lectures;
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
-    
     
     
     
