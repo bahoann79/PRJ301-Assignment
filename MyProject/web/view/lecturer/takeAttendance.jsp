@@ -3,7 +3,7 @@
     Created on : Oct 12, 2022, 9:39:57 PM
     Author     : admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,47 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
+        
+         <style>
+            /* Reset CSS */
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
 
-        <link rel="stylesheet" href="../../assets/css/studentSchedule.css"/>
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+
+                /* tạo hiệu ứng lăn */
+                scroll-behavior: smooth;
+            }
+
+
+            .header-sc a {
+                line-height: 50px;
+                text-decoration: none;
+                margin-left: 20px;
+                display: inline-block;
+            }
+
+            .header-sc ul,
+            .header-sc ul > li{
+                display: inline-block;
+
+            }
+
+            .header-sc ul > li {
+                background-color: #5cb85c;
+                border-radius: 5px;
+                padding: 3px;
+                color: aliceblue;
+            }
+
+            .footer a {
+                text-decoration: none;
+            }
+        </style>
 
     </head>
     <body>
@@ -28,9 +67,7 @@
             <!-- START HEADER -->
             <div class="row">
                 <div class="col-md-8">
-                    <h1><span>FPT University Academic Portal</span>
-                    </h1>
-
+                    <h1><span>FPT University Academic Portal</span></h1>
                 </div>
                 <div class="col-md-4">
                     <table>
@@ -52,9 +89,9 @@
 
             <!-- START Navigation -->
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
-                <a href="home.jsp">Home</a>
+                <a href="#">Home</a>
                 <ul>
-                    <li>sonnt5</li> |
+                    <li>${requestScope.session.lecturer.lecturerCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
                 </ul>
 
@@ -62,128 +99,66 @@
 
             <div class="mt-3">
                 <h2 class="text-center fs-1">Take Attendance</h2>
-                <p class="text-center italic fs-3 fst-italic fw-light">for IOT1601 - PRJ301 (sonnt5)</p>
+                <p class="text-center italic fs-3 fst-italic fw-light">for ${requestScope.session.group.groupName} (${requestScope.session.lecturer.lecturerCode})</p>
+            </div>
+
+            <div>
+                <p><strong>Subject: </strong>${requestScope.session.group.subject.subjectCode}</p>
+                <p><strong>Room: </strong> ${requestScope.session.room.roomName}</p>
+                <p><strong>Date: </strong> ${requestScope.session.date}</p>
+                <p><strong>Slot: </strong> ${requestScope.session.timeSlot.description}</p>
+                <p><strong>Attended: </strong> <span class="text-danger">${requestScope.session.attended ? "Taken" : "Not Yet"}</span></p>        
             </div>
             <!-- END Navigation -->
 
             <!-- START TABLE -->
-            <form>
-                <table class="table">
+            <form action="takeAttendance" method="POST">
+                <input type="hidden" name="sessionId" value="${param.sessionId}"/>
+                <table class="table mt-5">
 
-                    <thead class="table-light">
+                    <thead class="table-primary">
                         <tr>
-                            <th>Index</th>
+                            <th>No.</th>
                             <th>Image</th>
-                            <th>Member</th>
                             <th>Code</th>
-                            <th>Surname</th>
-                            <th>Middle Name</th>
-                            <th>Given Name</th>
-                            <th>Status</th>
+                            <th>Full Name</th>                      
+                            <th>Present</th>
+                            <th>Absent</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
 
                     <tbody>
+                    <c:forEach items="${requestScope.session.attendances}" var="a" varStatus="loop">
                         <tr>
-                            <td>1</td>
+                            <td>${loop.index+1}</td>
                             <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
+                            <td>${a.student.studentCode}
+                                <input type="hidden" name="listStId" value="${a.student.studentId}"/>
+
+                            </td>
+                            <td>${a.student.fullName}</td>
+                            <td>
+                                <input type="radio"
+                                       <c:if test="${a.status}">
+                                checked="checked"
+                                </c:if>  
+                                name="status${a.student.studentId}" value="present"  />
+                            </td>
+                            <td>
+                                <input type="radio"
+                                       <c:if test="${!a.status}">
+                                checked="checked"
+                                </c:if>  
+                                name="status${a.student.studentId}" value="absent"  />
+                            </td>
+                            <td>
+                                <input type="text" name="description${a.student.studentId}" value="${a.description}" />
+                            </td>
+
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><img src="../../assets/img/avatar-female.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><img src="../../assets/img/avatar-female.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td><img src="../../assets/img/avatar-female.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td><img src="../../assets/img/avatar-female.jpg" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HoanNBHE160107</td>
-                            <td>HE160107</td>
-                            <td>Nguyễn</td>
-                            <td>Bá</td>
-                            <td>Hoàn</td>
-                            <td><input type="radio"></td>
-                        </tr>
+                    </c:forEach>
+
                     </tbody>
 
                 </table>
@@ -206,8 +181,6 @@
                         href="#">books24x7</a></p>
             </div>
             <!-- END FOOTER -->
-
-
 
         </div>
     </body>
