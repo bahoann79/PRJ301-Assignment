@@ -3,7 +3,7 @@
     Created on : Oct 12, 2022, 9:36:15 PM
     Author     : admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,65 @@
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="../../assets/css/studentSchedule.css"/>
+        <style>
+            /* Reset CSS */
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+
+                /* tạo hiệu ứng lăn */
+                scroll-behavior: smooth;
+            }
+
+
+            .header-sc a {
+                line-height: 50px;
+                text-decoration: none;
+                margin-left: 20px;
+                display: inline-block;
+            }
+
+            .header-sc ul,
+            .header-sc ul > li{
+                display: inline-block;
+
+            }
+
+            .header-sc ul > li {
+                background-color: #5cb85c;
+                border-radius: 5px;
+                padding: 3px;
+                color: aliceblue;
+            }
+
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+
+            .alert {
+                position: relative;
+                padding: .75rem 1.25rem;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: .25rem;
+            }
+
+            table a {
+                text-decoration: none;
+            }
+
+            .footer a {
+                text-decoration: none;
+            }
+        </style>
+
     </head>
     <body>
         <div class="container">
@@ -53,134 +111,68 @@
             <!-- START Navigation -->
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
                 <a href="#">Home</a>
-                <a href="../student/schedule.jsp">Schedule</a>
+                <a href="#">Schedule</a>
                 <ul>
-                    <li>sonnt5</li> |
+                    <li>${requestScope.lecturer.lecturerCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
                 </ul>
 
             </div>
 
             <div class="mt-3">
-                <h2 class="text-center fs-1">Today activity (13/10/2002)</h2>
+                <h2 class="text-center fs-1">Today activity (${requestScope.today})</h2>
+                <p class="text-center fs-3 fst-italic fw-light">for ${requestScope.lecturer.lecturerName}</p>
             </div>
+
+            <c:if test="${requestScope.size eq 0}">
+                <div class="alert alert-success text-center">Take a rest ! You don't have anything todo ...</div>
+            </c:if>
             <!-- END Navigation -->
 
             <table class="table mt-5 table-bordered">
                 <thead class="table-primary">
                     <tr>
                         <th>SLOT</th>
-                        <th>START</th>
-                        <th>END</th>
+                        <th>TIME SLOT</th>
                         <th>SUBJECT</th>
-                        <th>STUDENT</th>
+                        <th>GROUP</th>
                         <th>ROOM</th>
                         <th>CAMPUS</th>
                         <th>TAKE ATTENDANCE</th>
-                        <th>VIEW ATTENDANCE</th>
                         <th>EDIT ATTENDANCE</th>
+                        <th>VIEW ATTENDANCE</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>7:30</td>
-                        <td>9:00</td>
-                        <td>Java Web Application Development</td>
-                        <td>IOT1601</td>
-                        <td>DE-420</td>
-                        <td>FU-HL</td>
-                        <td>Taken</td>
-                        <td><a href="takeAttendance.jsp">View</a></td>
-                        <td><a href="takeAttendance.jsp">Edit</a></td>
-                    </tr>
 
+                <c:forEach items="${requestScope.timeSlots}" var="timeSlot">
                     <tr>
-                        <td>2</td>
-                        <td>9:10</td>
-                        <td>10:40</td>
-                        <td>Java Web Application Development</td>
-                        <td>SE1601</td>
-                        <td>DE-420</td>
-                        <td>FU-HL</td>
-                        <td>Closing</td>
-                        <td><a href="takeAttendance.jsp">View</a></td>
-                        <td><a href="takeAttendance.jsp">Edit</a></td>
-                    </tr>
+                        <td>${timeSlot.timeSlotId}</td>
+                        <td>${timeSlot.description}</td>
 
-                    <tr>
-                        <td>3</td>
-                        <td>10:50</td>
-                        <td>12:20</td>
-                        <td>OOP with Java Lab</td>
-                        <td>SE1602</td>
-                        <td>BE-201</td>
-                        <td>FU-HL</td>
-                        <td>Closing</td>
-                        <td><a href="takeAttendance.jsp">View</a></td>
-                        <td><a href="takeAttendance.jsp">Edit</a></td>
+                    <c:forEach items="${requestScope.sessions}" var="s">
+                        <c:if test="${timeSlot.timeSlotId eq s.timeSlot.timeSlotId}">
+                            <td>${s.group.subject.subjectName}</td>
+                            <td>${s.group.groupName}</td>
+                            <td>${s.room.roomName}</td>
+                            <td>FU - HL</td>
+                            <td>
+                            <c:if test="${s.attended}">
+                                <strong class="text-success">Taken</strong>
+                            </c:if>
+                            <c:if test="${!s.attended}">
+                                <strong class="text-danger">Closing</strong>
+                            </c:if>
+                            </td>
+                            <td><a href="takeAttendance?sessionId=${s.sessionId}">Edit</a></td>
+                            <td><a href="#">View</a></td>
+                        </c:if>                             
+                    </c:forEach>
                     </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>12:50</td>
-                        <td>14:20</td>
-                        <td>OOP with Java Lab</td>
-                        <td>SE1603</td>
-                        <td>DE-208</td>
-                        <td>FU-HL</td>
-                        <td>Closing</td>
-                        <td><a href="takeAttendance.jsp">View</a></td>
-                        <td><a href="takeAttendance.jsp">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>14:30</td>
-                        <td>16:00</td>
-                        <td>Java Web Application Development</td>
-                        <td>SE1604</td>
-                        <td>AL-301</td>
-                        <td>FU-HL</td>
-                        <td>Closing</td>
-                        <td><a href="takeAttendance.jsp">View</a></td>
-                        <td><a href="takeAttendance.jsp">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>16:10</td>
-                        <td>17:40</td>
-                        <td>Java Web Application Development</td>
-                        <td>SE1605</td>
-                        <td>BE-310</td>
-                        <td>FU-HL</td>
-                        <td>Closing</td>
-                        <td><a href="takeAttendance.jsp">View</a></td>
-                        <td><a href="takeAttendance.jsp">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>17:50</td>
-                        <td>19:20</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>19:30</td>
-                        <td>21:00</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
+                </c:forEach>
+
+
                 </tbody>
             </table>
 
@@ -192,7 +184,6 @@
                         href="#">books24x7</a></p>
             </div>
             <!-- END FOOTER -->
-
 
     </body>
 </html>
