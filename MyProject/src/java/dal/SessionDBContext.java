@@ -25,8 +25,8 @@ import model.TimeSlot;
  * @author admin
  */
 public class SessionDBContext extends DBContext<Session> {
-    
-     public ArrayList<Session> filterSchedule(int sessionId, Date from, Date to) {
+
+    public ArrayList<Session> filterSchedule(int sessionId, Date from, Date to) {
         ArrayList<Session> listSession = new ArrayList<>();
         try {
             String sql = "SELECT s.session_id, s.[date], s.[index], s.attended,\n"
@@ -74,6 +74,72 @@ public class SessionDBContext extends DBContext<Session> {
                 session.setTimeSlot(timeSlot);
 
                 listSession.add(session);
+            }
+            return listSession;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Session> filterHome(int sessionId, Date today) {
+        try {
+            ArrayList<Session> listSession = new ArrayList<>();
+
+            String sql = "SELECT s.session_id, s.[date], s.[index], s.attended,\n"
+                    + "	   lec.lecturer_id, lec.lecturer_code, lec.lecturer_name,\n"
+                    + "	   gr.group_id, gr.group_name,\n"
+                    + "	   sub.subject_id, sub.subject_name,\n"
+                    + "	   r.room_id, r.room_name,\n"
+                    + "	   tl.time_slot_id, tl.t_description	\n"
+                    + "FROM [Session] s INNER JOIN Lecturer lec ON s.lecturer_id = lec.lecturer_id\n"
+                    + "				 INNER JOIN [Group] gr ON s.group_id = gr.group_id\n"
+                    + "				 INNER JOIN [Subject] sub ON sub.subject_id = gr.subject_id\n"
+                    + "				 INNER JOIN Room r ON s.room_id = r.room_id\n"
+                    + "				 INNER JOIN TimeSlot tl ON s.time_slot_id = tl.time_slot_id\n"
+                    + "				 WHERE lec.lecturer_id = ? AND s.[date] = ?";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, sessionId);
+            stm.setDate(2, today);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Session session = new Session();
+                Lecturer lecturer = new Lecturer();
+                Group group = new Group();
+                Subject subject = new Subject();
+                Room room = new Room();
+                TimeSlot timeSlot = new TimeSlot();
+
+                session.setSessionId(rs.getInt("session_id"));
+                session.setDate(rs.getDate("date"));
+                session.setIndex(rs.getInt("index"));
+                session.setAttended(rs.getBoolean("attended"));
+
+                lecturer.setLecturerId(rs.getInt("lecturer_id"));
+                lecturer.setLecturerCode(rs.getString("lecturer_code"));
+                lecturer.setLecturerName(rs.getString("lecturer_name"));
+                session.setLecturer(lecturer);
+
+                group.setGroupId(rs.getInt("group_id"));
+                group.setGroupName(rs.getString("group_name"));
+                subject.setSubjectId(rs.getInt("subject_id"));
+                subject.setSubjectName(rs.getString("subject_name"));
+                group.setSubject(subject);
+                session.setGroup(group);
+
+                room.setRoomId(rs.getInt("room_id"));
+                room.setRoomName(rs.getString("room_name"));
+                session.setRoom(room);
+
+                timeSlot.setTimeSlotId(rs.getInt("time_slot_id"));
+                timeSlot.setDescription(rs.getString("t_description"));
+                session.setTimeSlot(timeSlot);
+
+                listSession.add(session);
+
             }
             return listSession;
 
