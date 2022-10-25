@@ -26,6 +26,9 @@ import model.TimeSlot;
  */
 public class SessionDBContext extends DBContext<Session> {
 
+    /*
+        for lecturer schedule
+     */
     public ArrayList<Session> filterSchedule(int sessionId, Date from, Date to) {
         ArrayList<Session> listSession = new ArrayList<>();
         try {
@@ -83,6 +86,86 @@ public class SessionDBContext extends DBContext<Session> {
         return null;
     }
 
+    /*
+        for student timetable
+     */
+    public ArrayList<Session> filterTimetable(int studentId, Date from, Date to) {
+        ArrayList<Session> listSession = new ArrayList<>();
+        try {
+            String sql = "SELECT s.session_id, s.[date], s.[index], s.attended,\n"
+                    + "	   st.student_id, st.student_code, st.full_name,\n"
+                    + "	   ISNULL(a.[status], 0) [status], ISNULL(a.[description], '') [description],\n"
+                    + "	   gr.group_id, gr.group_name,\n"
+                    + "	   sub.subject_id, sub.subject_code,\n"
+                    + "	   r.room_id, r.room_name,\n"
+                    + "	   tl.time_slot_id, tl.t_description	\n"
+                    + "FROM [Session] s INNER JOIN [Group] gr ON s.group_id = gr.group_id\n"
+                    + "				 INNER JOIN StudentGroup sg ON sg.group_id = gr.group_id\n"
+                    + "				 INNER JOIN Student st ON st.student_id = sg.student_id\n"
+                    + "				 LEFT JOIN Attendance a ON a.student_id = st.student_id AND a.session_id = s.session_id\n"
+                    + "				 INNER JOIN [Subject] sub ON sub.subject_id = gr.subject_id\n"
+                    + "				 INNER JOIN Room r ON s.room_id = r.room_id\n"
+                    + "				 INNER JOIN TimeSlot tl ON s.time_slot_id = tl.time_slot_id\n"
+                    + "				 WHERE st.student_id = ? AND s.[date] >= ? AND s.[date] <= ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, studentId);
+            stm.setDate(2, from);
+            stm.setDate(3, to);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session session = new Session();
+                Student student = new Student();
+                Attendance attendance = new Attendance();
+                Group group = new Group();
+                Subject subject = new Subject();
+                Room room = new Room();
+                TimeSlot timeSlot = new TimeSlot();
+
+                session.setSessionId(rs.getInt("session_id"));
+                session.setDate(rs.getDate("date"));
+                session.setIndex(rs.getInt("index"));
+                session.setAttended(rs.getBoolean("attended"));
+
+                student.setStudentId(rs.getInt("student_id"));
+                student.setStudentCode(rs.getString("student_code"));
+                student.setFullName(rs.getString("full_name"));
+                group.getStudents().add(student);
+
+                attendance.setStudent(student);
+                attendance.setSession(session);
+                attendance.setStatus(rs.getBoolean("status"));
+                attendance.setDescription(rs.getString("description"));
+                session.getAttendances().add(attendance);
+
+                subject.setSubjectId(rs.getInt("subject_id"));
+                subject.setSubjectCode(rs.getString("subject_code"));
+                group.setSubject(subject);
+
+                group.setGroupId(rs.getInt("group_id"));
+                group.setGroupName(rs.getString("group_name"));
+                session.setGroup(group);
+
+                room.setRoomId(rs.getInt("room_id"));
+                room.setRoomName(rs.getString("room_name"));
+                session.setRoom(room);
+
+                timeSlot.setTimeSlotId(rs.getInt("time_slot_id"));
+                timeSlot.setDescription(rs.getString("t_description"));
+                session.setTimeSlot(timeSlot);
+
+                listSession.add(session);
+            }
+            return listSession;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /*
+        for lecturer home
+     */
     public ArrayList<Session> filterHome(int sessionId, Date today) {
         try {
             ArrayList<Session> listSession = new ArrayList<>();
@@ -153,6 +236,9 @@ public class SessionDBContext extends DBContext<Session> {
     public void insert(Session model) {
     }
 
+    /*
+        method is used to take attendance for lecturer
+     */
     @Override
     public void update(Session model) {
 
@@ -216,6 +302,10 @@ public class SessionDBContext extends DBContext<Session> {
     public void delete(Session model) {
     }
 
+    /*
+        method is used to get an object Session with 
+        all information related to another table
+     */
     @Override
     public Session get(int id) {
 
