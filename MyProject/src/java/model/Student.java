@@ -26,6 +26,7 @@ public class Student {
 
     private ArrayList<Group> groups = new ArrayList<>();
     private ArrayList<Attendance> attendances = new ArrayList<>();
+    private Account account;
 
     public Student() {
     }
@@ -137,5 +138,15 @@ public class Student {
     public void setAttendances(ArrayList<Attendance> attendances) {
         this.attendances = attendances;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+    
+    
 
 }
