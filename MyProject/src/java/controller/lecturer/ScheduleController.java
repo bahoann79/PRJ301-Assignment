@@ -4,6 +4,7 @@
  */
 package controller.lecturer;
 
+import controller.auth.BaseRoleAuthenticationController;
 import dal.LecturerDBContext;
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import model.Account;
 import model.Lecturer;
 import model.Session;
 import model.TimeSlot;
@@ -24,10 +26,11 @@ import util.DateTimeHelper;
  *
  * @author admin
  */
-public class ScheduleController extends HttpServlet {
+public class ScheduleController extends BaseRoleAuthenticationController {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         int lecturerId = Integer.parseInt(request.getParameter("lecturerId"));
         String rawFrom = request.getParameter("from");
         String rawTo = request.getParameter("to");
@@ -65,17 +68,14 @@ public class ScheduleController extends HttpServlet {
 
         request.getRequestDispatcher("../view/lecturer/lecSchedule.jsp").forward(request, response);
     }
-  
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
- 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void processPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 
+    @Override
+    protected void processGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
 }
