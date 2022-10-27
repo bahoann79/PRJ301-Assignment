@@ -56,6 +56,11 @@
                 color: aliceblue;
             }
 
+            .logout {
+                float: right;
+                padding-right: 12px;
+            }
+
             .alert-success {
                 color: #155724;
                 background-color: #d4edda;
@@ -116,7 +121,7 @@
                     <li>${requestScope.lecturer.lecturerCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
                 </ul>
-
+                <a href="../logout" class="logout">Logout</a>
             </div>
 
             <div class="mt-3">
@@ -146,32 +151,32 @@
 
                 <tbody>
 
-                <c:forEach items="${requestScope.timeSlots}" var="timeSlot">
-                    <tr>
-                        <td>${timeSlot.timeSlotId}</td>
-                        <td>${timeSlot.description}</td>
+                    <c:forEach items="${requestScope.timeSlots}" var="timeSlot">
+                        <tr>
+                            <td>${timeSlot.timeSlotId}</td>
+                            <td>${timeSlot.description}</td>
 
-                    <c:forEach items="${requestScope.sessions}" var="s">
-                        <c:if test="${timeSlot.timeSlotId eq s.timeSlot.timeSlotId}">
-                            <td>${s.group.subject.subjectName}</td>
-                            <td>${s.group.groupName}</td>
-                            <td>${s.room.roomName}</td>
-                            <td>FU - HL</td>
-                            <td>
-                            <c:if test="${s.attended}">
-                                <strong class="text-success">Taken</strong>
-                            </c:if>
-                            <c:if test="${!s.attended}">
-                                <strong class="text-danger">Closing</strong>
-                            </c:if>
-                            </td>
-                            <td><a href="takeAttendance?sessionId=${s.sessionId}">Edit</a></td>
-                            <td><a href="#">View</a></td>
-                        </c:if>                             
+                            <c:forEach items="${requestScope.sessions}" var="s">
+                                <c:if test="${timeSlot.timeSlotId eq s.timeSlot.timeSlotId}">
+                                    <td>${s.group.subject.subjectName}</td>
+                                    <td>${s.group.groupName}</td>
+                                    <td>${s.room.roomName}</td>
+                                    <td>FU - HL</td>
+                                    <td>
+                                        <c:if test="${s.attended}">
+                                            <strong class="text-success">Taken</strong>
+                                        </c:if>
+                                        <c:if test="${!s.attended}">
+                                            <strong class="text-danger">Closing</strong>
+                                        </c:if>
+                                    </td>
+                                    <td><a href="takeAttendance?sessionId=${s.sessionId}">Edit</a></td>
+                                    <td><a href="#">View</a></td>
+                                </c:if>                             
+                            </c:forEach>
+                        </tr>
                     </c:forEach>
-                    </tr>
-                </c:forEach>
-                    
+
                 </tbody>
             </table>
 

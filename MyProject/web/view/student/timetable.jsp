@@ -62,6 +62,11 @@
                 color: aliceblue;
             }
 
+            .logout {
+                float: right;
+                padding-right: 12px;
+            }
+
             .form-date input{
                 display: inline-block;
                 width: 200px;
@@ -80,7 +85,7 @@
         </style>
     </head>
     <body>
-         <div class="container">
+        <div class="container">
 
             <!-- HEADER -->
             <div class="row">
@@ -113,7 +118,7 @@
                     <li>${requestScope.student.fullName}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
                 </ul>
-
+                <a href="../logout" class="logout">Logout</a>
             </div>
 
             <div class="mt-3">
