@@ -20,69 +20,7 @@
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 
-        <style>
-            /* Reset CSS */
-            * {
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
-            }
-
-            html {
-                font-family: Arial, Helvetica, sans-serif;
-
-                /* tạo hiệu ứng lăn */
-                scroll-behavior: smooth;
-            }
-
-
-            .header-sc a {
-                line-height: 50px;
-                text-decoration: none;
-                margin-left: 20px;
-                display: inline-block;
-            }
-
-            .header-sc ul,
-            .header-sc ul > li{
-                display: inline-block;
-
-            }
-
-            .header-sc ul > li {
-                background-color: #5cb85c;
-                border-radius: 5px;
-                padding: 3px;
-                color: aliceblue;
-            }
-
-            .logout {
-                float: right;
-                padding-right: 12px;
-            }
-
-            .alert-success {
-                color: #155724;
-                background-color: #d4edda;
-                border-color: #c3e6cb;
-            }
-
-            .alert {
-                position: relative;
-                padding: .75rem 1.25rem;
-                margin-bottom: 1rem;
-                border: 1px solid transparent;
-                border-radius: .25rem;
-            }
-
-            table a {
-                text-decoration: none;
-            }
-
-            .footer a {
-                text-decoration: none;
-            }
-        </style>
+        <link rel="stylesheet" href="/MyProject/assets/css/style.css"/>
 
     </head>
     <body>

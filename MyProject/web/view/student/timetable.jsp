@@ -21,68 +21,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-
-        <link rel="stylesheet" href="../../assets/css/studentSchedule.css"/>
-
-
-        <style>
-
-            /* Reset CSS */
-            * {
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
-            }
-
-            html {
-                font-family: Arial, Helvetica, sans-serif;
-
-                /* tạo hiệu ứng lăn */
-                scroll-behavior: smooth;
-            }
-
-
-            .header-sc a {
-                line-height: 50px;
-                text-decoration: none;
-                margin-left: 20px;
-                display: inline-block;
-            }
-
-            .header-sc ul,
-            .header-sc ul > li{
-                display: inline-block;
-
-            }
-
-            .header-sc ul > li {
-                background-color: #5cb85c;
-                border-radius: 5px;
-                padding: 3px;
-                color: aliceblue;
-            }
-
-            .logout {
-                float: right;
-                padding-right: 12px;
-            }
-
-            .form-date input{
-                display: inline-block;
-                width: 200px;
-            }
-
-            .form-date button {
-                margin-bottom: 4px;
-            }
-
-
-            .footer a,
-            table a {
-                text-decoration: none;
-            }
-
-        </style>
+        
+        <link rel="stylesheet" href="/MyProject/assets/css/style.css"/>
     </head>
     <body>
         <div class="container">

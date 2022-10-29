@@ -1,13 +1,3 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Oct 9, 2022, 3:05:53 PM
-    Author     : admin
-*/
-
-
 /* Reset CSS */
 * {
     padding: 0;
@@ -33,7 +23,6 @@ html {
 .header-sc ul,
 .header-sc ul > li{
     display: inline-block;
-
 }
 
 .header-sc ul > li {
@@ -43,6 +32,36 @@ html {
     color: aliceblue;
 }
 
-.footer a {
+.logout {
+    float: right;
+    padding-right: 12px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.form-date input{
+    display: inline-block;
+    width: 200px;
+}
+
+.form-date button {
+    margin-bottom: 4px;
+}
+
+
+table a,
+.footer a{
     text-decoration: none;
 }

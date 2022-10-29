@@ -1,0 +1,130 @@
+/* Reset CSS */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* tạo hiệu ứng lăn */
+    scroll-behavior: smooth;
+}
+
+.header-sc a {
+    line-height: 50px;
+    text-decoration: none;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.header-sc ul,
+.header-sc ul > li{
+    display: inline-block;
+
+}
+
+.header-sc ul > li {
+    background-color: #5cb85c;
+    border-radius: 5px;
+    padding: 3px;
+    color: aliceblue;
+}
+
+.form-date input{
+    display: inline-block;
+    width: 200px;
+}
+
+.form-date button {
+    margin-bottom: 4px;
+}
+
+.footer a,
+table a {
+    text-decoration: none;
+}
+
+body {
+    background: #f8f8f8;
+}
+
+/* FIX FLOAT */
+.clear {
+    clear: both;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* HEADER */
+.header {
+    font-family: monospace;
+}
+
+/* CONTENT */
+.content {
+    width: 60%;
+    margin: 0 auto 44px;
+    padding: 0;
+    background-color: #fff;
+}
+
+/* CONTENT LEFT */
+.content .content-left {
+    float: left;
+    width: 40%;
+    height: 444px;
+    background-image: url(../..//assets/img/fu-hl.jpg);
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+}
+
+.content .cl-text {
+    color: #fff;
+    font-size: 14px;
+    margin-top: 160px;
+    font-weight: bold;
+}
+
+/* CONTENT RIGHT  */
+.content .content-right {
+    float: left;
+    width: 60%;
+    padding: 0 28px 28px 28px;
+    background-color: #fff;
+    height: 444px;
+}
+
+.content-right .cr-text {
+    font-family: cursive;
+
+}
+
+.content-right .cr-desc {
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+.content-right .cr-desc a {
+    text-decoration: none;
+}
+
+.content-right .form-item-checkbox {
+    margin-left: 50px;
+}
+
+.content-right .form-check-label {
+    padding: 3px 0 0 4px;
+}
+
+.content-right a.form-item-forgot {
+    float: right;
+    text-decoration: none;
+}

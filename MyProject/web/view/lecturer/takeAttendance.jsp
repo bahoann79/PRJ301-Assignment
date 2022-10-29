@@ -19,47 +19,7 @@
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
         
-         <style>
-            /* Reset CSS */
-            * {
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
-            }
-
-            html {
-                font-family: Arial, Helvetica, sans-serif;
-
-                /* tạo hiệu ứng lăn */
-                scroll-behavior: smooth;
-            }
-
-
-            .header-sc a {
-                line-height: 50px;
-                text-decoration: none;
-                margin-left: 20px;
-                display: inline-block;
-            }
-
-            .header-sc ul,
-            .header-sc ul > li{
-                display: inline-block;
-
-            }
-
-            .header-sc ul > li {
-                background-color: #5cb85c;
-                border-radius: 5px;
-                padding: 3px;
-                color: aliceblue;
-            }
-
-            .footer a {
-                text-decoration: none;
-            }
-        </style>
-
+       <link rel="stylesheet" href="/MyProject/assets/css/style.css"/>
     </head>
     <body>
         <div class="container">
@@ -132,7 +92,7 @@
                     <c:forEach items="${requestScope.session.attendances}" var="a" varStatus="loop">
                         <tr>
                             <td>${loop.index+1}</td>
-                            <td><img src="../../assets/img/avatar-male.jpg" alt="" style="width: 120px; height: 120px;"></td>
+                            <td><img src="/MyProject/assets/img/user.png" alt="" style="width: 120px; height: 120px;"></td>
                             <td>${a.student.studentCode}
                                 <input type="hidden" name="listStId" value="${a.student.studentId}"/>
 
