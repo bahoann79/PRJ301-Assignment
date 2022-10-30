@@ -24,6 +24,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentViewAttController</servlet-name>
+        <servlet-class>controller.student.StudentViewAttController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LecturerViewHome</servlet-name>
         <url-pattern>/lecturer/home</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentViewAttController</servlet-name>
+        <url-pattern>/student/viewAttendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
