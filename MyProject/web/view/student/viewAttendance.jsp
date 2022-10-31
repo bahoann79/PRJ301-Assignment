@@ -3,7 +3,7 @@
     Created on : Oct 30, 2022, 9:30:58 PM
     Author     : admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,7 +54,7 @@
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
                 <a href="#">Home</a>
                 <ul>
-                    <li>he160107</li> |
+                    <li>${requestScope.student.studentCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
                 </ul>
 
@@ -62,8 +62,9 @@
 
             <div class="mt-3">
                 <h2 class="text-center fs-1">View Attendance</h2>
-                <p class="text-center italic fs-3 fst-italic fw-light">for Nguyen Ba Hoan (he160107)</p>
-                <h3 class="text-center">Elementary Japanese 1 -(JPD123 - IOT1601)</h3>
+                <p class="text-center italic fs-3 fst-italic fw-light">for ${requestScope.student.fullName} (${requestScope.student.studentCode})</p>
+                <h3 class="text-center">${requestScope.session.group.subject.subjectName} - (${requestScope.session.group.groupName})</h3>
+
             </div>
 
             <!-- SCHEDULE TABLE -->
@@ -78,72 +79,40 @@
                         <th>Lecturer</th>
                         <th>Group Name</th>
                         <th>Attendance Status</th>
-                        <th>Lecturer's comment</th>
+                        <th>Lecturer's comment</th>                   
                     </tr>
                 </thead>
 
                 <tbody>
+                <c:forEach items="${requestScope.sessions}" var="s" varStatus="loop">
                     <tr>
-                        <td>1</td>
-                        <td>Mon 05/09/2022</td>
-                        <td>3_(10:50-12:20)</td>
-                        <td>DE-416</td>
-                        <td>DungLKT</td>
-                        <td>IOT1601</td>
-                        <td>Present</td>
-                        <td>-</td>
+                        <td>${loop.index + 1}</td>
+                        <td>${s.date}</td>
+                        <td>${s.timeSlot.timeSlotId} - (${s.timeSlot.description})</td>
+                        <td>${s.room.roomName}</td>
+                        <td>${s.lecturer.lecturerCode}</td>
+                        <td>${s.group.groupName}</td>
+                        <td>
+                    <c:forEach items="${s.attendances}" var="a">
+                        <c:if test="${a.status}">
+                            <strong class="text-success">Present</strong>
+                        </c:if>
+                        <c:if test="${!a.status}">
+                            <strong class="text-danger">Absent</strong>
+                        </c:if>
+                    </c:forEach>
+                    </td>
+                    <td>
+                    <c:forEach items="${s.attendances}" var="att">
+                        ${att.description}
+                    </c:forEach>                      
+                    </td>
                     </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Wed 07/09/2022</td>
-                        <td>3_(10:50-12:20)</td>
-                        <td>DE-416</td>
-                        <td>DungLKT</td>
-                        <td>IOT1601</td>
-                        <td>Present</td>
-                        <td>-</td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Fri 09/09/2022</td>
-                        <td>3_(10:50-12:20)</td>
-                        <td>DE-416</td>
-                        <td>DungLKT</td>
-                        <td>IOT1601</td>
-                        <td>Present</td>
-                        <td>-</td>
-                    </tr>
-
-
+                </c:forEach>              
                 </tbody>
             </table>
-
-
-            <!-- NOTE -->
-            <strong>Note: </strong>
-            <div>
-                <ul>
-                    <li>
-                        <p class="text-success d-inline">(attended) </p> hoannbhe160107 had attended this activity / Nguyễn
-                        Bá Hoàn đã tham gia hoạt động này
-                    </li>
-                    <li>
-                        <p class="text-danger d-inline">(absent) </p> hoannbhe160107 had NOT attended this activity / Nguyễn
-                        Bá Hoàn đã vắng mặt buổi này
-                    </li>
-                    <li>(-): no data was given</li>
-                    <li>Các phòng bắt đầu bằng AL thuộc tòa nhà Alpha. VD: AL...</li>
-                    <li>Các phòng bắt đầu bằng BE thuộc tòa nhà Beta. VD: BE,..</li>
-                    <li>Các phòng bắt đầu bằng G thuộc tòa nhà Gamma. VD: G201,..</li>
-                    <li>Các phòng tập bằng đầu bằng R thuộc khu vực sân tập Vovinam.</li>
-                    <li>Các phòng bắt đầu bằng DE thuộc tòa nhà Delta. VD: DE,..</li>
-                    <li>Little UK (LUK) thuộc tầng 5 tòa nhà Delta</li>
-                </ul>
-
-            </div>
-
+            <span class="fs-3">PRESENT: <strong>${requestScope.result}%</strong> SO FAR (${requestScope.count} 
+                <span class="text-success">PRESENT</span> ON ${requestScope.size} TOTAL) </span>
 
             <!-- FOOTER -->
             <div class="text-center mt-5 footer">
@@ -152,10 +121,8 @@
                 <p>© Powered by <a href="#">FPT University</a> | <a href="#">CMS</a> | <a href="#">library</a> | <a
                         href="#">books24x7</a></p>
             </div>
-
-
-
         </div>
+
 
 
     </body>

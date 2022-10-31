@@ -94,7 +94,7 @@
                                 <td>
                                     <c:forEach items="${requestScope.sessions}" var="s">
                                         <c:if test="${helper.compare(s.date, d) eq 0 and (s.timeSlot.timeSlotId) eq timeSlot.timeSlotId}">
-                                            <a href="#">${s.group.subject.subjectCode}</a> <br/>
+                                            <a href="viewAttendance?studentId=${param.studentId}&groupId=${s.group.groupId}">${s.group.subject.subjectCode}</a> <br/>
                                             at ${s.room.roomName} <br/>
                                             (<c:forEach items="${s.attendances}" var="att">
                                                 <c:if test="${att.status}">
