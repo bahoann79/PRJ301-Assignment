@@ -3,7 +3,7 @@
     Created on : Nov 3, 2022, 7:57:12 PM
     Author     : admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -52,9 +52,9 @@
 
             <!-- START Navigation -->
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
-                <a href="#">Home</a>
+                <a href="home?lecturerId=${requestScope.lecturer.lecturerId}">Home</a>
                 <ul>
-                    <li>sonnt5</li> |
+                    <li>${requestScope.lecturer.lecturerCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
                 </ul>
 
@@ -62,12 +62,12 @@
 
             <div class="mt-3">
                 <h2 class="text-center fs-1">Attendance Report</h2>
-                <p class="text-center italic fs-3 fst-italic fw-light">for IOT1601 - PRJ301 (sonnt5)</p>
+                <p class="text-center italic fs-3 fst-italic fw-light">for ${requestScope.session.group.groupName} (${requestScope.lecturer.lecturerCode})</p>
             </div>
 
             <div>
-                <strong>Subject: </strong>PRJ-301
-                <strong>Duration: </strong> 6 slot
+                <strong>Subject: </strong>${requestScope.session.group.subject.subjectName}
+                <strong>Duration: </strong> ${requestScope.duration} slot
             </div>
             <!-- END Navigation -->
 
@@ -87,14 +87,18 @@
                     </thead>
 
                     <tbody>
+                    <c:forEach items="${requestScope.session.attendances}" var="a" varStatus="loop">
                         <tr>
-                            <td>1</td>
-                            <td><img src="/AttendanceApp/assets/img/user.png" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>HE160107</td>
-                            <td>Nguyễn Bá Hoàn</td>
-                            <td>3/6</td>
-                            <td>50%</td>
+                            <td>${loop.index + 1}</td>
+                            <td>
+                                <img src="/AttendanceApp/assets/img/user.png" alt="" style="width: 120px; height: 120px;">
+                            </td>
+                            <td>${a.student.studentCode}</td>
+                            <td>${a.student.fullName}</td>
+                            <td>${a.quantityPresent}</td>
+                            <td>${a.result}%</td>
                         </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
 

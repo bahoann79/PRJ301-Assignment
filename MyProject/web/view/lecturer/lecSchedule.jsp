@@ -52,7 +52,7 @@
 
             <!-- Navigation -->
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
-                <a href="#">Home</a>
+                <a href="home?lecturerId=${requestScope.lecturer.lecturerId}">Home</a>
                 <ul>
                     <li>${requestScope.lecturer.lecturerCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
