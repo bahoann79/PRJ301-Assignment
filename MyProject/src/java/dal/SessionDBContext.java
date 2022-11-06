@@ -321,6 +321,134 @@ public class SessionDBContext extends DBContext<Session> {
         return null;
     }
 
+    /*
+        for Lecture Attendance Report
+     */
+    public ArrayList<Session> filterLecAttReport(int lecturerId, int groupId) {
+
+        ArrayList<Integer> listSessionId = new ArrayList<>();
+        ArrayList<Session> sessions = new ArrayList<>();
+        try {
+
+            connection.setAutoCommit(false);
+
+            String sqlListSession = "SELECT s.session_id\n"
+                    + "FROM [Session] s INNER JOIN TimeSlot tl ON s.time_slot_id = tl.time_slot_id\n"
+                    + "				 INNER JOIN Room r ON r.room_id = s.room_id\n"
+                    + "				 INNER JOIN Lecturer lec ON lec.lecturer_id = s.lecturer_id\n"
+                    + "				 LEFT JOIN [Group] gr ON gr.group_id = s.group_id\n"
+                    + "				 INNER JOIN [Subject] sub ON sub.subject_id = gr.subject_id\n"
+                    + "				 WHERE lec.lecturer_id = ? AND gr.group_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sqlListSession);
+            stm.setInt(1, lecturerId);
+            stm.setInt(2, groupId);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                listSessionId.add(rs.getInt("session_id"));
+            }
+
+            for (int i = 0; i < listSessionId.size(); i++) {
+                String sqlEachSession = "SELECT s.session_id, s.[date], s.[index], s.attended,\n"
+                        + "	   tl.time_slot_id, tl.t_description,\n"
+                        + "	   r.room_id, r.room_name,\n"
+                        + "	   lec.lecturer_id, lec.lecturer_code, lec.lecturer_name,\n"
+                        + "	   gr.group_id, gr.group_name, gr.semester, gr.[year],\n"
+                        + "	   sub.subject_id, sub.subject_code, sub.subject_name,\n"
+                        + "	   st.student_id, st.student_code,st.full_name,\n"
+                        + "	   ISNULL(a.[status], 0) [status], ISNULL(a.[description], '') [description]\n"
+                        + "FROM [Session] s INNER JOIN TimeSlot tl ON s.time_slot_id = tl.time_slot_id\n"
+                        + "				 INNER JOIN Room r ON r.room_id = s.room_id\n"
+                        + "				 INNER JOIN Lecturer lec ON lec.lecturer_id = s.lecturer_id\n"
+                        + "				 INNER JOIN [Group] gr ON gr.group_id = s.group_id\n"
+                        + "				 INNER JOIN [Subject] sub ON sub.subject_id = gr.subject_id\n"
+                        + "				 INNER JOIN StudentGroup sg ON sg.group_id = gr.group_id\n"
+                        + "				 INNER JOIN Student st ON st.student_id = sg.student_id\n"
+                        + "				 LEFT JOIN Attendance a ON a.student_id = st.student_id AND a.session_id = s.session_id\n"
+                        + "				 WHERE lec.lecturer_id = ? AND gr.group_id = ? AND s.session_id = ?";
+                PreparedStatement stmEachSession = connection.prepareStatement(sqlEachSession);
+                stmEachSession.setInt(1, lecturerId);
+                stmEachSession.setInt(2, groupId);
+                stmEachSession.setInt(3, listSessionId.get(i));
+                ResultSet rsEachSession = stmEachSession.executeQuery();
+                Session session = null;
+                while (rsEachSession.next()) {
+                    Lecturer lecturer = new Lecturer();
+                    Group group = new Group();
+                    Subject subject = new Subject();
+                    Room room = new Room();
+                    TimeSlot timeSlot = new TimeSlot();
+                    if (session == null) {
+                        session = new Session();
+                        session.setSessionId(rsEachSession.getInt("session_id"));
+                        session.setDate(rsEachSession.getDate("date"));
+                        session.setIndex(rsEachSession.getInt("index"));
+                        session.setAttended(rsEachSession.getBoolean("attended"));
+
+                        session.setSessionId(rsEachSession.getInt("session_id"));
+                        session.setDate(rsEachSession.getDate("date"));
+                        session.setIndex(rsEachSession.getInt("index"));
+                        session.setAttended(rsEachSession.getBoolean("attended"));
+
+                        lecturer.setLecturerId(rsEachSession.getInt("lecturer_id"));
+                        lecturer.setLecturerCode(rsEachSession.getString("lecturer_code"));
+                        session.setLecturer(lecturer);
+
+                        subject.setSubjectId(rsEachSession.getInt("subject_id"));
+                        subject.setSubjectCode(rsEachSession.getString("subject_code"));
+                        subject.setSubjectName(rsEachSession.getString("subject_name"));
+                        group.setSubject(subject);
+
+                        group.setGroupId(rsEachSession.getInt("group_id"));
+                        group.setGroupName(rsEachSession.getString("group_name"));
+                        session.setGroup(group);
+
+                        room.setRoomId(rsEachSession.getInt("room_id"));
+                        room.setRoomName(rsEachSession.getString("room_name"));
+                        session.setRoom(room);
+
+                        timeSlot.setTimeSlotId(rsEachSession.getInt("time_slot_id"));
+                        timeSlot.setDescription(rsEachSession.getString("t_description"));
+                        session.setTimeSlot(timeSlot);
+
+                    }
+                    // student
+                    Student student = new Student();
+                    student.setStudentId(rsEachSession.getInt("student_id"));
+                    student.setFullName(rsEachSession.getString("full_name"));
+                    student.setStudentCode(rsEachSession.getString("student_code"));
+
+                    // attendance
+                    Attendance attendance = new Attendance();
+                    attendance.setStudent(student);
+                    attendance.setSession(session);
+                    attendance.setStatus(rsEachSession.getBoolean("status"));
+                    attendance.setDescription(rsEachSession.getString("description"));
+                    session.getAttendances().add(attendance);
+
+                }
+                sessions.add(session);
+
+            }
+            connection.commit();
+            return sessions;
+
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+                Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex1) {
+                Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            } finally {
+                try {
+                    connection.setAutoCommit(true);
+                } catch (SQLException ex1) {
+                    Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public void insert(Session model) {
     }
