@@ -11,13 +11,16 @@ import java.sql.Date;
  * @author admin
  */
 public class Attendance {
-    
+
     private Session session;
     private Student student;
-    
+
     private boolean status;
     private String description;
     private Date recordTime;
+
+    private String quantityPresent;
+    private float result;
 
     public Attendance() {
     }
@@ -69,7 +72,21 @@ public class Attendance {
     public void setRecordTime(Date recordTime) {
         this.recordTime = recordTime;
     }
-    
-    
-    
+
+    public String getQuantityPresent() {
+        return quantityPresent;
+    }
+
+    public void setQuantityPresent(String quantityPresent) {
+        this.quantityPresent = quantityPresent;
+    }
+
+    public float getResult() {
+        return result;
+    }
+
+    public void setResult(float result) {
+        this.result = result;
+    }
+
 }
