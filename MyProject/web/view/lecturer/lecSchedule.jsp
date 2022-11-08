@@ -78,8 +78,8 @@
                 <thead class="table-primary">
                     <tr>
                         <th></th>
-                            <c:forEach items="${requestScope.dates}" var="d">
-                            <th>${helper.getDayNameofWeek(d)}<br/>${d}</th>
+                            <c:forEach items="${requestScope.datesView}" var="dView">
+                            <th>${helper.getDayNameofWeek2(dView)}<br/>${dView}</th>
                             </c:forEach>
                     </tr>
                 </thead>

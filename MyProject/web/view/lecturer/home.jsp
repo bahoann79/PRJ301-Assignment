@@ -109,7 +109,7 @@
                                         </c:if>
                                     </td>
                                     <td><a href="takeAttendance?sessionId=${s.sessionId}">Edit</a></td>
-                                    <td><a href="#">View</a></td>
+                                    <td><a href="attendanceReport?lecturerId=${requestScope.lecturer.lecturerId}&groupId=${s.group.groupId}">View</a></td>
                                 </c:if>                             
                             </c:forEach>
                         </tr>

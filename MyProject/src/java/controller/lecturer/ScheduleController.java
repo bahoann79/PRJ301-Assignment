@@ -52,6 +52,7 @@ public class ScheduleController extends BaseRoleAuthenticationController {
 
         request.setAttribute("from", dateFrom);
         request.setAttribute("to", dateTo);
+        request.setAttribute("datesView", DateTimeHelper.getDateList2(dateFrom, dateTo));
         request.setAttribute("dates", DateTimeHelper.getDateList(dateFrom, dateTo));
 
         TimeSlotDBContext tlDB = new TimeSlotDBContext();
