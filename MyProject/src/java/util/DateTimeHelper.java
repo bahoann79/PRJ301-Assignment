@@ -6,6 +6,7 @@ package util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,6 +57,41 @@ public class DateTimeHelper {
         return "Error";
     }
 
+    public static String getDayNameofWeek2(String s) {
+        try {
+            int currentYear = LocalDate.now().getYear();
+            String stCurrentYear = Integer.toString(currentYear);
+            s += "/";
+            s += stCurrentYear;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            java.sql.Date date = toDateSql(formatter.parse(s));
+            java.util.Date d = toDateUtil(date);
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+            switch (dayOfWeek) {
+                case 1:
+                    return "Sun";
+                case 2:
+                    return "Mon";
+                case 3:
+                    return "Tue";
+                case 4:
+                    return "Wed";
+                case 5:
+                    return "Thu";
+                case 6:
+                    return "Fri";
+                case 7:
+                    return "Sat";
+            }
+            return "Error";
+        } catch (ParseException ex) {
+            Logger.getLogger(DateTimeHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static java.util.Date toDateUtil(java.sql.Date d) {
         java.util.Date x = new java.util.Date(d.getTime());
         x = removeTime(x);
@@ -81,6 +117,34 @@ public class DateTimeHelper {
             }
         }
         return dates;
+    }
+
+    public static ArrayList<String>
+            getDateList2(java.sql.Date from, java.sql.Date to) {
+        ArrayList<String> dates = new ArrayList<>();
+
+        int days = 0;
+        java.util.Date e_from = toDateUtil(from);
+        java.util.Date e_to = toDateUtil(to);
+
+        while (true) {
+
+            java.util.Date d = DateTimeHelper.addDays(e_from, days);
+
+            dates.add(dateFormat(toDateSql(d)));
+
+            days++;
+            if (d.compareTo(e_to) >= 0) {
+                break;
+            }
+        }
+        return dates;
+    }
+
+    public static String dateFormat(java.sql.Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+        String afterFormat = formatter.format(date);
+        return afterFormat;
     }
 
     public static Date removeTime(Date date) {
