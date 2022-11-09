@@ -74,6 +74,7 @@
             <!-- START TABLE -->
             <form action="takeAttendance" method="POST">
                 <input type="hidden" name="sessionId" value="${param.sessionId}"/>
+                <input type="hidden" name="lecturerId" value="${param.lecturerId}">
                 <table class="table mt-5">
 
                     <thead class="table-primary">

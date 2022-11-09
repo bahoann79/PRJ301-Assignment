@@ -108,7 +108,7 @@
                                             <strong class="text-danger">Closing</strong>
                                         </c:if>
                                     </td>
-                                    <td><a href="takeAttendance?sessionId=${s.sessionId}">Edit</a></td>
+                                    <td><a href="takeAttendance?sessionId=${s.sessionId}&lecturerId=${requestScope.lecturer.lecturerId}">Edit</a></td>
                                     <td><a href="attendanceReport?lecturerId=${requestScope.lecturer.lecturerId}&groupId=${s.group.groupId}">View</a></td>
                                 </c:if>                             
                             </c:forEach>
