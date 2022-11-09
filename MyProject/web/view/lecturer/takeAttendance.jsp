@@ -18,8 +18,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-        
-       <link rel="stylesheet" href="/MyProject/assets/css/style.css"/>
+
+        <link rel="stylesheet" href="/MyProject/assets/css/style.css"/>
     </head>
     <body>
         <div class="container">
@@ -75,6 +75,7 @@
             <form action="takeAttendance" method="POST">
                 <input type="hidden" name="sessionId" value="${param.sessionId}"/>
                 <input type="hidden" name="lecturerId" value="${param.lecturerId}">
+                <input type="hidden" name="sesDate" value="${session.date}">
                 <table class="table mt-5">
 
                     <thead class="table-primary">
@@ -90,35 +91,35 @@
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${requestScope.session.attendances}" var="a" varStatus="loop">
-                        <tr>
-                            <td>${loop.index+1}</td>
-                            <td><img src="/MyProject/assets/img/user.png" alt="" style="width: 120px; height: 120px;"></td>
-                            <td>${a.student.studentCode}
-                                <input type="hidden" name="listStId" value="${a.student.studentId}"/>
+                        <c:forEach items="${requestScope.session.attendances}" var="a" varStatus="loop">
+                            <tr>
+                                <td>${loop.index+1}</td>
+                                <td><img src="/MyProject/assets/img/user.png" alt="" style="width: 120px; height: 120px;"></td>
+                                <td>${a.student.studentCode}
+                                    <input type="hidden" name="listStId" value="${a.student.studentId}"/>
 
-                            </td>
-                            <td>${a.student.fullName}</td>
-                            <td>
-                                <input type="radio"
-                                       <c:if test="${a.status}">
-                                checked="checked"
-                                </c:if>  
-                                name="status${a.student.studentId}" value="present"  />
-                            </td>
-                            <td>
-                                <input type="radio"
-                                       <c:if test="${!a.status}">
-                                checked="checked"
-                                </c:if>  
-                                name="status${a.student.studentId}" value="absent"  />
-                            </td>
-                            <td>
-                                <input type="text" name="description${a.student.studentId}" value="${a.description}" />
-                            </td>
+                                </td>
+                                <td>${a.student.fullName}</td>
+                                <td>
+                                    <input type="radio"
+                                           <c:if test="${a.status}">
+                                               checked="checked"
+                                           </c:if>  
+                                           name="status${a.student.studentId}" value="present"  />
+                                </td>
+                                <td>
+                                    <input type="radio"
+                                           <c:if test="${!a.status}">
+                                               checked="checked"
+                                           </c:if>  
+                                           name="status${a.student.studentId}" value="absent"  />
+                                </td>
+                                <td>
+                                    <input type="text" name="description${a.student.studentId}" value="${a.description}" />
+                                </td>
 
-                        </tr>
-                    </c:forEach>
+                            </tr>
+                        </c:forEach>
 
                     </tbody>
 

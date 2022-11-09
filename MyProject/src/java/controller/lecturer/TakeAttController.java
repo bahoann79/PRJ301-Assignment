@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Account;
 import model.Attendance;
@@ -30,11 +32,16 @@ public class TakeAttController extends BaseRoleAuthenticationController {
         SessionDBContext sesDB = new SessionDBContext();
         ArrayList<Session> listSession = sesDB.listSessionWithLecturerId(lecturerId);
         boolean check = false;
-        System.out.println("LecturerId: " + lecturerId);
-        System.out.println("SessionId Required: " + sessionId);
 
-        for (Session session : listSession) {
-            System.out.println("Session ID in list :  " + session.getSessionId());
+        Date sesDate = Date.valueOf(request.getParameter("sesDate"));
+        Date today = Date.valueOf(LocalDate.now());
+
+        if (sesDate.after(today)) {
+            response.getWriter().println("You can't save this session now !");
+            return;
+        } else if (sesDate.before(today)) {
+            response.getWriter().println("It's overdue for you to edit this session !");
+            return;
         }
 
         for (Session session : listSession) {
