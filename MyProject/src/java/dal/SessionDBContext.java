@@ -449,6 +449,41 @@ public class SessionDBContext extends DBContext<Session> {
         return null;
     }
 
+    public ArrayList<Session> listSessionWithLecturerId(int lecturerId) {
+
+        ArrayList<Session> listSession = new ArrayList<>();
+        try {
+            String sql = "SELECT s.session_id, s.[date], s.[index], s.attended,\n"
+                    + "	   lec.lecturer_id, lec.lecturer_code, lec.lecturer_name\n"
+                    + "	   FROM [Session] s RIGHT JOIN Lecturer lec \n"
+                    + "	   ON lec.lecturer_id = s.lecturer_id			\n"
+                    + "	   WHERE lec.lecturer_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, lecturerId);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session session = new Session();
+                session.setSessionId(rs.getInt("session_id"));
+                session.setDate(rs.getDate("date"));
+                session.setIndex(rs.getInt("index"));
+                session.setAttended(rs.getBoolean("attended"));
+
+                Lecturer lecturer = new Lecturer();
+                lecturer.setLecturerId(rs.getInt("lecturer_id"));
+                lecturer.setLecturerCode(rs.getString("lecturer_code"));
+                lecturer.setLecturerName(rs.getString("lecturer_name"));
+                session.setLecturer(lecturer);
+
+                listSession.add(session);
+            }
+
+            return listSession;
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     @Override
     public void insert(Session model) {
     }
