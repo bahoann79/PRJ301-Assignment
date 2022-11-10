@@ -52,7 +52,7 @@
 
             <!-- Navigation -->
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
-                <a href="#">Home</a>
+                <a href="timetable?studentId=${requestScope.student.studentId}">Home</a>
                 <ul>
                     <li>${requestScope.student.studentCode}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
@@ -84,36 +84,38 @@
                 </thead>
 
                 <tbody>
-                <c:forEach items="${requestScope.sessions}" var="s" varStatus="loop">
-                    <tr>
-                        <td>${loop.index + 1}</td>
-                        <td>${s.date}</td>
-                        <td>${s.timeSlot.timeSlotId} - (${s.timeSlot.description})</td>
-                        <td>${s.room.roomName}</td>
-                        <td>${s.lecturer.lecturerCode}</td>
-                        <td>${s.group.groupName}</td>
-                        <td>
-                    <c:forEach items="${s.attendances}" var="a">
-                        <c:if test="${a.status}">
-                            <strong class="text-success">Present</strong>
-                        </c:if>
-                        <c:if test="${!a.status}">
-                            <strong class="text-danger">Absent</strong>
-                        </c:if>
-                    </c:forEach>
-                    </td>
-                    <td>
-                    <c:forEach items="${s.attendances}" var="att">
-                        ${att.description}
-                    </c:forEach>                      
-                    </td>
-                    </tr>
-                </c:forEach>              
+                    <c:forEach items="${requestScope.sessions}" var="s" varStatus="loop">
+                        <tr>
+                            <td>${loop.index + 1}</td>
+                            <td>${s.date}</td>
+                            <td>${s.timeSlot.timeSlotId} - (${s.timeSlot.description})</td>
+                            <td>${s.room.roomName}</td>
+                            <td>${s.lecturer.lecturerCode}</td>
+                            <td>${s.group.groupName}</td>
+                            <td>
+                                <c:forEach items="${s.attendances}" var="a">
+                                    <c:if test="${a.status}">
+                                        <strong class="text-success">Present</strong>
+                                    </c:if>
+                                    <c:if test="${!a.status}">
+                                        <strong class="text-danger">Absent</strong>
+                                    </c:if>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <c:forEach items="${s.attendances}" var="att">
+                                    ${att.description}
+                                </c:forEach>                      
+                            </td>
+                        </tr>
+                    </c:forEach>              
                 </tbody>
             </table>
             <span class="fs-3">PRESENT: <strong>${requestScope.result}%</strong> SO FAR (${requestScope.count} 
-                <span class="text-success">PRESENT</span> ON ${requestScope.size} TOTAL) </span>
-
+                <span class="text-success">PRESENT</span> ON ${requestScope.size} TOTAL) </span> <br/>
+                <br/>
+                <strong class="text-danger">Note:</strong> If you do not attend 80% of the course, you will not be eligible for the final exam
+            <br />
             <!-- FOOTER -->
             <div class="text-center mt-5 footer">
                 <strong>Mọi góp ý, thắc mắc xin liên hệ : </strong> Phòng dịch vụ sinh viên: Email <a

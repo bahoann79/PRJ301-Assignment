@@ -53,7 +53,7 @@
 
             <!-- Navigation -->
             <div class="mt-2 bg-light header-sc" style="height: 50px;">
-                <a href="#">Home</a>
+                <a href="timetable?studentId=${requestScope.student.studentId}">Home</a>
                 <ul>
                     <li>${requestScope.student.fullName}</li> |
                     <li>CAMPUS:FPTU-Hòa Lạc</li>
